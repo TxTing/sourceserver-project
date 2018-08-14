@@ -1,0 +1,42 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if  error %}
+  {{ error }}
+  <br />
+  <br />
+{% endif %}
+
+<h1>Createposts</h1>
+
+
+<form method="POST" action="{% url 'createposts' %}" enctype="multipart/form-data">
+  {% csrf_token %}
+
+  Title:
+  <br />
+  <input type="text" name="title" />
+  <br />
+
+  Body:
+  <br />
+    <input type="textbox" name="body" />
+    <!--textarea class="form-control" rows="3" name="body"></textarea-->
+  <br />
+  Url:
+  <br />
+  <input type="text" name="url" />
+  <br />
+  <br />
+  Image:
+  <br />
+  <input type="file" name="image" />
+  <br />
+  <br />
+
+  <input class="btn btn-primary" type="submit" value="Post">
+
+</form>
+{% endblock %}

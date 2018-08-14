@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+  <!--div class="col-2">
+    <img src="{{ posts.icon.url }}" class="img-fluid" />
+  </div-->
+  <div class="col-10 pt-4">
+    <a href="{{ posts.url }}"><h1>{{ posts.title }}</h1></a>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-8">
+    <img src="{{ posts.image.url }}" class="img-fluid" />
+  </div>
+  <div class="col-2">
+    <a href="javascript:{document.getElementById('pushlike').submit()}"><button class="btn btn-primary btn-lg btn-block"><span class="oi oi-thumb-up"></span>&nbsp Like </button></a>
+  </div>
+</div>
+
+<div class="row pt-2">
+  <div class="col-4">
+    <h4>Post By {{ posts.post_owner.username }}</h4>
+  </div>
+  <div class="col-4 text-right">
+    <span class="oi oi-clock"></span><h4 style="display: inline;"> {{ posts.less_pub_date }}</h4>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-8 text-right">
+    <h4 class="text-primary">{{ posts.likes_total }} likes</h4>
+  </div>
+</div>
+
+<br/>
+
+<div class="row">
+  <div class="col-8">
+    <h3>Post</h3>
+    <p class="text-justify">{{ posts.body }}</p>
+  </div>
+</div>
+
+<form id="pushlike" method="POST" action="{% url 'pushlike' posts.id %}">
+  {% csrf_token %}
+  <input type="hidden"/>
+</form>
+
+<br/><br/><br/>
+{% endblock %}

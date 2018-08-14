@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for post in posts %}
+
+{% if post.post_owner == user %}
+
+<div class="row pt-5">
+  <div class="col-6" onclick="window.location='{% url 'detail' post.id %}';" style="cursor: pointer;">
+    <img src="{{ post.image.url }}" class="img-fluid" />
+  </div>
+  <div class="col-6">
+    <a href="{% url 'detail' post.id %}"><h2>{{ post.title }}</h2></a>
+    <p>{{ post.summary }} ......</p>
+  </div>
+
+  <div class="col-2 pt-2">
+    <a href="javascript:{document.getElementById('pushlike{{post.id}}').submit()}"><button class="btn btn-primary btn-lg btn-block"><span class="oi oi-thumb-up"></span>&nbsp Like {{ post.likes_total }}</button></a>
+  </div>
+
+  <div class="col-2 text-right pt-2">
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#exampleModalCenter">
+      <span class="oi oi-delete"></span>
+      Delete
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Confirm Delete</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <a href="javascript:{document.getElementById('deletepost{{post.id}}').submit()}"><button type="button" class="btn btn-primary">Delete</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+</div>
+
+<form id="pushlike{{post.id}}" method="POST" action="{% url 'pushlike' post.id %}">
+  {% csrf_token %}
+  <input type="hidden"/>
+</form>
+
+<form id="deletepost{{post.id}}" method="POST" action="{% url 'deletepost' post.id %}">
+  {% csrf_token %}
+  <input type="hidden"/>
+</form>
+
+{% endif %}
+{% endfor %}
+
+{% endblock %}

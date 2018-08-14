@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for post in posts %}
+<div class="row pt-5">
+  <div class="col-4" onclick="window.location='{% url 'detail' post.id %}';" style="cursor: pointer;">
+    <img src="{{ post.image.url }}" class="img-fluid"/>
+  </div>
+  <div class="col-6">
+    <a href="{% url 'detail' post.id %}"><h2>{{ post.title }}</h2></a>
+    <p>{{ post.summary }} ......</p>
+  </div>
+  <div class="col-2">
+    <a href="javascript:{document.getElementById('pushlike{{post.id}}').submit()}"><button class="btn btn-primary btn-lg btn-block"><span class="oi oi-thumb-up"></span>&nbsp Like {{ post.likes_total }}</button></a>
+  </div>
+</div>
+
+<form id="pushlike{{post.id}}" method="POST" action="{% url 'pushlike' post.id %}">
+  {% csrf_token %}
+  <input type="hidden"/>
+</form>
+
+{% endfor %}
+
+{% endblock %}

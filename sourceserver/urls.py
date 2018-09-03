@@ -3,6 +3,7 @@ from django.urls import path, include, re_path
 import posts.views, account.views
 from django.conf.urls.static import static
 from django.conf import settings
+from posts.views import ApiEndpoint
 #rest_framework
 from rest_framework import generics, permissions, serializers, routers
 from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, TokenHasScope
@@ -49,6 +50,8 @@ urlpatterns = [
     path('account/', include('account.urls')),
     path('posts/', include('posts.urls')),
     path('oauth2/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+    #example resource endpoint
+    path('api/hello', ApiEndpoint.as_view()),
 
     # rest_framework
     path('users/', UserList.as_view()),

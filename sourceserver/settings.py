@@ -62,23 +62,30 @@ AUTHENTICATION_BACKENDS = [
     'oauth2_provider.backends.OAuth2Backend',
     # Uncomment following if you want to access the admin
     'django.contrib.auth.backends.ModelBackend'
+    #'oauth2_provider.backends.OAuth2Backend',
 ]
 
 
 
 MIDDLEWARE = [
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
 
     #oauth2 middleware
-    'oauth2_provider.middleware.OAuth2TokenMiddleware',
+    #'oauth2_provider.middleware.OAuth2TokenMiddleware',
 
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    # 'django.contrib.auth.middleware.AuthenticationMiddleware',
+    #oauth2 middleware
+    'oauth2_provider.middleware.OAuth2TokenMiddleware',
+
+
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+
 ]
 
 

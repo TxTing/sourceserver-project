@@ -9,13 +9,12 @@ from django.http import HttpResponse
 
 class ApiEndpoint(ProtectedResourceView):
     def get(self, request, *args, **kwargs):
-        return HttpResponse('Hello, OAuth2!\n')
-
-@login_required()
-def secret_page(request, *args, **kwargs):
-    return HttpResponse('Secret contents!', status=200)
-
-
+        if request.user.is_authentaicated():
+            return HttpResponse(
+                request.user
+            )
+        else:
+            return HttpResponse('Hello, OAuth2!\n')
 
 def homepage(request):
     posts = Posts.objects.all()
@@ -61,6 +60,12 @@ def deletepost(request, posts_id):
         posts = get_object_or_404(Posts, pk=posts_id)
         posts.delete()
         return redirect('userpage')
+
+# @login_required(login_url="/account/signup")
+# def userpage(request):
+#     posts = Posts.objects.all()
+#     return render(request, 'posts/userpage.html', {'posts':posts})
+
 
 @login_required(login_url="/account/signup")
 def userpage(request):

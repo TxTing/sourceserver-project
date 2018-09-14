@@ -14,7 +14,7 @@ class ApiEndpoint(ProtectedResourceView):
         if request.user.is_authentaicated():
             return HttpResponse(
                 'Hello there! You are acting on behalf of "%s"\n'
-                % (request.user)
+                % (request.user.username)
             )
         else:
             return HttpResponse('Hello, OAuth2!\n')

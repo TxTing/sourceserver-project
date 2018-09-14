@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+
 from .models import Posts
 from django.utils import timezone
 
@@ -9,10 +11,10 @@ from django.http import HttpResponse
 
 class ApiEndpoint(ProtectedResourceView):
     def get(self, request, *args, **kwargs):
-        if request.user.is_authentaicated():
+        if user.is_authentaicated():
             return HttpResponse(
                 'Hello there! You are acting on behalf of "%s"\n'
-                % (request.user.username)
+                % (user)
             )
         else:
             return HttpResponse('Hello, OAuth2!\n')

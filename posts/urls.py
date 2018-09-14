@@ -7,6 +7,4 @@ urlpatterns = [
     path('<int:posts_id>/pushlike', views.pushlike, name='pushlike'),
     path('<int:posts_id>/deletepost', views.deletepost, name='deletepost'),
     path('userpage', views.userpage, name='userpage'),
-
-    path('secret', views.secret_page, name='secret'),
 ]

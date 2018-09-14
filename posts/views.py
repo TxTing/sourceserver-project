@@ -11,10 +11,10 @@ from django.http import HttpResponse
 
 class ApiEndpoint(ProtectedResourceView):
     def get(self, request, *args, **kwargs):
-        if user.is_authentaicated():
+        if request.user.is_authentaicated():
             return HttpResponse(
                 'Hello there! You are acting on behalf of "%s"\n'
-                % (user)
+                % (request.user)
             )
         else:
             return HttpResponse('Hello, OAuth2!\n')

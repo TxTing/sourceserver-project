@@ -11,8 +11,8 @@ from django.http import HttpResponse
 
 class ApiEndpoint(ProtectedResourceView):
     def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated():
-            username = str(request.user.username)
+        if request.user.is_authenticated:
+            username = request.user.username
             return HttpResponse(
                 'Hello there! You are acting on behalf of "%s"\n'
                 % (username)
